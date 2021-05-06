@@ -90,6 +90,7 @@ anchors.forEach(element => {
       behavior : "smooth",
       block : "start"
     })
+    element.blur();
   })
 });
 
@@ -99,6 +100,11 @@ function setData (array) {
     item.dataset.index = index;
     if (index === 0) {
       item.classList.add('active')
+      linkShow(item);
+      btnShow(item);
+    } else {
+      linkHide(item);
+      btnHide(item);
     }
   });
 };
@@ -109,6 +115,19 @@ function classRemove(array,index) {
 
 function classAdd(array,index) {
   array[index].classList.add("active");
+}
+
+function linkHide (item) {
+  let links = item.querySelectorAll('a');
+  links.forEach(element => {
+    element.setAttribute('tabindex', -1);
+  });
+}
+function linkShow (item) {
+  let links = item.querySelectorAll('a');
+  links.forEach(element => {
+    element.setAttribute('tabindex', 0);
+  });
 }
 
 function toggleActive(index) {
@@ -147,12 +166,15 @@ function onRightHeaderButtonClick() {
       classAdd(navItems, i);
       classAdd(slideItems, i);
       lineChoose(i);
+      linkShow(slideItems[i]);
     } else {
       classRemove(navItems, i);
       classRemove(slideItems, i);
       lineDell(i);
+      linkHide(slideItems[i]);
     }
   }
+  buttonRight.blur();
 };
 
 function onLeftHeaderButtonClick() {
@@ -163,12 +185,15 @@ function onLeftHeaderButtonClick() {
       classAdd(navItems, i);
       classAdd(slideItems, i);
       lineChoose(i);
+      linkShow(slideItems[i]);
     } else {
       classRemove(navItems, i);
       classRemove(slideItems, i);
       lineDell(i);
+      linkHide(slideItems[i]);
     }
   }
+  buttonLeft.blur();
 };
 
 navBox.addEventListener('click', function(evt) {
@@ -289,8 +314,10 @@ function flipSlideRight(array,slideNumber) {
   for(let i = 0; i < array.length; i++){
     if(slideNumber === i){
       classAdd(array, i);
+      linkShow(array[i]);
     } else {
       classRemove(array, i);
+      linkHide(array[i]);
     }
   }
 }
@@ -299,8 +326,10 @@ function flipSlideLeft(array,slideNumber) {
   for(let i = 0; i < array.length; i++){
     if(slideNumber === i){
       classAdd(array, i);
+      linkShow(array[i]);
     } else {
       classRemove(array, i);
+      linkHide(array[i]);
     }
   }
 }
@@ -309,21 +338,25 @@ function onRightTravelButtonClick() {
   travelSlideNumber += 1;
   travelBtnCheck();
   flipSlideRight(travelSlides, travelSlideNumber);
+  travelRightButton.blur();
 }
 function onLeftTravelButtonClick() {
   travelSlideNumber -= 1;
   travelBtnCheck();
   flipSlideLeft(travelSlides, travelSlideNumber);
+  travelLeftButton.blur();
 }
 function onRightShopButtonClick() {
   shopSlideNumber += 1;
   shopBtnCheck();
   flipSlideRight(shopSlides, shopSlideNumber);
+  shopRightButton.blur();
 }
 function onLeftShopButtonClick() {
   shopSlideNumber -= 1;
   shopBtnCheck();
   flipSlideLeft(shopSlides, shopSlideNumber);
+  shopLeftButton.blur();
 }
 
 travelRightButton.addEventListener("click", onRightTravelButtonClick);
@@ -332,6 +365,19 @@ shopRightButton.addEventListener("click", onRightShopButtonClick);
 shopLeftButton.addEventListener("click", onLeftShopButtonClick);
 
 //Sleep slider
+function btnHide (item) {
+  let links = item.querySelectorAll('button');
+  links.forEach(element => {
+    element.setAttribute('disabled', 'disabled');
+  });
+}
+function btnShow (item) {
+  let links = item.querySelectorAll('button');
+  links.forEach(element => {
+    element.removeAttribute('disabled');
+  });
+}
+
 function onRightSleepButtonClick() {
   sleepSlideNumber +=1;
   sleepBtnCheck();
@@ -339,10 +385,15 @@ function onRightSleepButtonClick() {
     if(sleepSlideNumber === i){
       classAdd(sleepSlides, i);
       stayPrice(i);
+      linkShow(sleepSlides[i]);
+      btnShow(sleepSlides[i]);
     } else {
       classRemove(sleepSlides, i);
+      linkHide(sleepSlides[i]);
+      btnHide(sleepSlides[i]);
     }
   }
+  sleepRightButton.blur();
 }
 
 function onLeftSleepButtonClick() {
@@ -352,10 +403,15 @@ function onLeftSleepButtonClick() {
     if(sleepSlideNumber === i){
       classAdd(sleepSlides, i);
       stayPrice(i);
+      linkShow(sleepSlides[i]);
+      btnShow(sleepSlides[i]);
     } else {
       classRemove(sleepSlides, i);
+      linkHide(sleepSlides[i]);
+      btnHide(sleepSlides[i]);
     }
   }
+  sleepLeftButton.blur();
 }
 
 sleepRightButton.addEventListener("click", onRightSleepButtonClick);

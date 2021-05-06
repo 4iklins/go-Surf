@@ -98,6 +98,9 @@
   .footer {
     padding: 0 0 34px;
   }
+  .holder-slide__info {
+    margin: 0 90px;
+  }
 }
 
 @media (max-width: 1300px) {
@@ -384,6 +387,7 @@
   }
   .holder-slide__info-item {
     min-height: 120px;
+    width: 260px;
   }
 
   .holder-slide__info {
@@ -407,6 +411,11 @@
     left: 0;
     right: auto;
   }
+
+  .holder-slide__info-item:last-child .holder-slide__info-title {
+    text-align: left;
+  }
+
   .holder-slide__description {
     background-size: 60%;
   }
