@@ -637,11 +637,13 @@
 
   &__head {
     background-repeat: no-repeat;
-    min-height: 780px;
+    min-height: 900px;
+    background-size: contain;
   }
   &__suptitle {
     text-align: right;
     padding-right: 80px;
+    padding-top: 80px;
   }
 }
 
@@ -670,16 +672,16 @@
 .holder__buttons {
   position: absolute;
   right: 80px;
-  top: 330px;
+  top: 420px;
   z-index: 3;
 }
 
 .holder-slide__description {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   margin-left: 135px;
-  margin-top: -250px;
-  min-height: 415px;
+  margin-top: -300px;
+  min-height: 250px;
   background-image: url(../img/airplane.png);
   background-position: bottom right;
   background-repeat: no-repeat;
@@ -687,6 +689,9 @@
 
 .sleep .holder-slide__description {
   background-image: url(../img/gammack.png);
+  min-height: 415px;
+  margin-top: -465px;
+  align-items: center;
 }
 
 .holder-slide__info {

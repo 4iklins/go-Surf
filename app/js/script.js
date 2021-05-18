@@ -24,17 +24,9 @@ let mapLines = {
 let container = document.querySelector('.container');
 let windowWidth = container.clientWidth;
 
-
+let x1 = null;
 let position = 0;
 let slidesToShow = 4;
-
-if(windowWidth <= 1300 && windowWidth >= 768){
-  slidesToShow = 3;
-} else if(windowWidth < 767 && windowWidth >= 530){
-  slidesToShow = 2;
-} else if(windowWidth < 530){
-  slidesToShow = 1;
-};
 
 let slidesToScrol = 1;
 let surfContainer = document.querySelector('.surf-slider');
@@ -208,11 +200,14 @@ buttonLeft.addEventListener("click", onLeftHeaderButtonClick);
 
 
 // Surf slider-start
-slides.forEach(function(slide){
-  slide.style.minWidth = slideWidth + 'px';
-});
+function setSurfSlideSize () {
+  slides.forEach(function(slide){
+    slide.style.minWidth = slideWidth + 'px';
+  });
+};
 
-SurfButtonRight.addEventListener('click', function () {
+
+function onRightSurfButtonClick () {
   let slidesLeft = slidesCount - (Math.abs(position) + slidesToShow * slideWidth)/slideWidth;
   position -= slidesLeft >= slidesToScrol ? movePosition : slidesLeft * slideWidth;
   setPosition();
@@ -221,9 +216,9 @@ SurfButtonRight.addEventListener('click', function () {
   showSurfLocCard(slidesInner[surfActiveslideNumber]);
   }
   surfBtncheck();
-});
+};
 
-SurfButtonLeft.addEventListener('click', function() {
+function onLeftSurfButtonClick () {
   let slidesLeft = Math.abs(position)/ slideWidth;
   position += slidesLeft >= slidesToScrol ? movePosition : slidesLeft * slideWidth;
   setPosition();
@@ -232,11 +227,37 @@ SurfButtonLeft.addEventListener('click', function() {
     showSurfLocCard(slidesInner[surfActiveslideNumber]);
   }
   surfBtncheck();
-});
+};
 
 function setPosition () {
   track.style.transform = 'translateX(' + position + 'px)'
 };
+
+SurfButtonRight.addEventListener('click', onRightSurfButtonClick);
+SurfButtonLeft.addEventListener('click', onLeftSurfButtonClick);
+
+track.addEventListener('touchstart', onTouchStart);
+track.addEventListener('touchmove', onTouchMove);
+
+function onTouchStart (evt) {
+  const firstTouch = evt.touches[0];
+  x1 = firstTouch.clientX;
+}
+
+function onTouchMove (evt) {
+  if(!x1) {
+    return false;
+  }
+  let x2 = evt.touches[0].clientX;
+  let diffX = x2 - x1;
+  console.log(diffX);
+  if(diffX > 5 && !SurfButtonLeft.disabled){
+    onLeftSurfButtonClick();
+  } else if(diffX < -5 && !SurfButtonRight.disabled) {
+    onRightSurfButtonClick();
+  }
+  x1 = null;
+}
 // Surf slider-end
 
 // Surf slider active slide
@@ -260,6 +281,8 @@ function setDataForSurfSlides (array) {
     item.dataset.index = index;
     if (index === surfActiveslideNumber) {
       item.classList.add('active')
+    } else {
+      item.classList.remove('active')
     }
   });
 };
@@ -524,17 +547,34 @@ function btnCheck () {
 }
 // Button Check
 
+//Swipe left right
 
 
+function init () {
+  slidesToShow = 4;
+  slidesCount = slides.length;
+  movePosition = slidesToScrol * slideWidth;
+  windowWidth = container.clientWidth;
+  if(windowWidth <= 1300 && windowWidth >= 768){
+    slidesToShow = 3;
+  } else if(windowWidth < 767 && windowWidth >= 530){
+    slidesToShow = 2;
+  } else if(windowWidth < 530){
+    slidesToShow = 1;
+  };
+  slideWidth = surfContainer.clientWidth / slidesToShow;
 
-
-slideSetWidth();
-setActiveSurfSlide();
-showSurfLocCard(slidesInner[surfActiveslideNumber]);
-setData(navItems);
-setData(slideItems);
-setData(travelSlides);
-setData(sleepSlides);
-setData(shopSlides);
-btnCheck();
-stayPrice(sleepSlideNumber);
+  setSurfSlideSize();
+  slideSetWidth();
+  setActiveSurfSlide();
+  showSurfLocCard(slidesInner[surfActiveslideNumber]);
+  setData(navItems);
+  setData(slideItems);
+  setData(travelSlides);
+  setData(sleepSlides);
+  setData(shopSlides);
+  btnCheck();
+  stayPrice(sleepSlideNumber);
+}
+window.addEventListener('resize', init);
+init();

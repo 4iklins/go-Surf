@@ -60,6 +60,23 @@
     left: 125px;
   }
 
+  .holder {
+    min-height: 1750px;
+  }
+
+  .holder-slide__head {
+    min-height: 750px;
+  }
+
+  .holder-slide__description {
+    margin-left: 90px;
+    background-size: 40%;
+  }
+
+  .sleep .holder-slide__description {
+    background-size: 30%;
+  }
+
   .surf-box {
     height: 650px;
   }
@@ -104,13 +121,18 @@
 }
 
 @media (max-width: 1300px) {
+  .holder-slide__head {
+    min-height: 650px;
+  }
+
   .holder-slide__description {
-    background-size: 50%;
+    background-size: 40%;
     background-position-y: top;
   }
 
   .sleep .holder-slide__description {
-    background-size: 40%;
+    background-size: 30%;
+    background-position-y: bottom;
   }
 
   .holder-slide__info-title {
@@ -127,7 +149,7 @@
     padding: 100px 0 90px;
   }
   .holder {
-    min-height: 1850px;
+    min-height: 1650px;
   }
   .quantity {
     width: 160px;
@@ -375,6 +397,17 @@
     min-height: 1640px;
     background-origin: content-box;
   }
+
+  .holder-slide__description {
+    margin-left: 95px;
+    margin-top: -180px;
+    background-size: 45%;
+  }
+
+  .sleep .holder-slide__description {
+    margin-top: -345px;
+  }
+
   .holder-slide__info {
     margin: 0px 65px;
     flex-direction: column;
@@ -397,9 +430,7 @@
   .holder-slide__btn {
     margin-top: 20px;
   }
-  .holder-slide__description {
-    margin-left: 95px;
-  }
+
   .price {
     text-align: left;
   }
@@ -416,11 +447,8 @@
     text-align: left;
   }
 
-  .holder-slide__description {
-    background-size: 60%;
-  }
   .holder__buttons {
-    top: 230px;
+    top: 330px;
   }
 
   .shop__slider {
@@ -455,6 +483,7 @@
     left: 0;
     right: 0;
     justify-content: center;
+    bottom: 70px;
   }
   .slider-dots__number {
     display: none;
@@ -497,13 +526,19 @@
     }
   }
   .holder-slide__description {
+    background-image: none !important;
     margin-left: 40px;
   }
   .holder-slide__info {
     margin: 0px 10px;
+    margin-top: -100px;
   }
   .shop__slider-inner {
     margin-left: 40px;
+  }
+
+  .suptitle__text {
+    font-size: 32px;
   }
 }
 
@@ -564,14 +599,18 @@
       width: 60px;
     }
   }
+  .shop__slider-info {
+    width: 390px;
+  }
   .description__head {
-    font-size: 32px;
+    font-size: 30px;
     img {
       margin-left: 7px;
     }
   }
   .holder-slide__info {
     margin-left: 20px;
+    margin-top: -120px;
   }
   .holder-slide__info-item {
     padding: 0;
@@ -791,7 +830,7 @@
     min-height: 85px;
   }
   .holder-slide__info {
-    margin-top: -55px;
+    margin-top: -150px;
   }
 
   .holder-slide__star {
